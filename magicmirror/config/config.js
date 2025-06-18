@@ -7,17 +7,6 @@ let config = {
   modules: [
     { module: "clock", position: "top_left" },
     {
-      module: "MMM-Surf",
-      position: "top_right",
-      config: {
-        dataFile: "modules/MMM-Surf/data.json",
-        showWaveHeight: true,
-        showTide: true,
-        showWind: false,    // weniger Grafik = weniger RAM
-        locale: "es",
-      }
-    },
-    {
       module: "MMM-AEMet",
       position: "top_left",
       config: {
