@@ -1,32 +1,53 @@
-let config = {
+/* MagicMirror Config – Surf Van Dashboard (Pi-3B+) */
+require("dotenv").config();          //  .env → process.env
+
+const { WINDY_POINT_KEY, WINDY_MAP_KEY, WINDY_WEBCAM_KEY,
+        AEMET_API_KEY, LAT = 36.721, LON = -4.421 } = process.env;
+
+var config = {
   address: "0.0.0.0",
   port: 8080,
-  language: "de",
+  basePath: "/",
+  language: "de",             // Toggle später über Modul possible
   timeFormat: 24,
   units: "metric",
+
   modules: [
-    { module: "clock", position: "top_left" },
-    {
-      module: "MMM-AEMet",
-      position: "top_left",
-      config: {
-        apiKey: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZXJyaXQuZmFiaXNjaDIwMjRAZ21haWwuY29tIiwianRpIjoiZTlhMWE0ZDktMWJlMC00NTkwLTlkODgtNDYxMzY1ZThkN2IwIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3NTAxOTI5MDgsInVzZXJJZCI6ImU5YTFhNGQ5LTFiZTAtNDU5MC05ZDg4LTQ2MTM2NWU4ZDdiMCIsInJvbGUiOiIifQ.9fIBYzJoFXKlLWe0UUOVmW0Usym1cvEVEXHPRbeUnQI",
-        lat: 36.721,
-        lon: -4.421
-      }
-    },
-       {
-      module: "MMM-WindyForecast",
+    /* ─── Header ─────────────────────────────────────────── */
+    { module: "clock",    position: "top_left"  },
+    { module: "calendar", position: "top_right",
+      config: { maximumEntries: 6 } },
+
+    /* ─── Windy Forecast Map + Webcams ───────────────────── */
+    { module: "MMM-WindyForecast",
       position: "top_center",
       config: {
-        lat: 36.721,
-        lon: -4.421,
+        lat: parseFloat(LAT), lon: parseFloat(LON),
+        zoom: 10,
         overlay: "wind",
-        pointKey: "<jmbOoi5E6wcbBopBC2SSctlrFg4kRQ3l>",
-        webcamKey: "bqP18j779vqftLdj98RzHKMsbdABP2f7"
+        pointKey : WINDY_POINT_KEY,
+        mapKey   : WINDY_MAP_KEY,
+        webcamKey: WINDY_WEBCAM_KEY,
+        model: "gfs",
+        radius_km: 25,
+        updateInterval: 30 * 60 * 1000 // 30 min
       }
-    }
-    // Füge max. 1-2 weitere leichte Module hinzu!
+    },
+
+    /* ─── AEMet Wetter Spanien ───────────────────────────── */
+    { module: "MMM-AEMet",
+      position: "bottom_left",
+      config: {
+        apiKey: AEMET_API_KEY,
+        lat: parseFloat(LAT), lon: parseFloat(LON),
+        updateInterval: 60 * 60 * 1000 // 1 h
+      }
+    },
+
+    /* Platzhalter für weitere leichte Module (RSS u. ä.)   */
+    // { module: "MMM-SurfRSS", ... }
   ]
 };
-if (typeof module !== "undefined") {module.exports = config;}
+
+/* ====== Do not edit below ====== */
+if (typeof module !== "undefined") { module.exports = config; }
