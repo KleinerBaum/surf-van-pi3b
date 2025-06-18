@@ -1,0 +1,26 @@
+{
+  "name": "surf-van-dashboard",
+  "version": "1.0.0",
+  "description": "MagicMirror² setup for a slim Surf Van Dashboard (Pi-3B+)",
+  "main": "js/electron.js",
+  "scripts": {
+    "start": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js",
+    "start:dev": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js dev"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "node-fetch": "^2.6.9",
+    "express": "^4.18.4",
+    "rss-parser": "^3.13.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "electron": "^25.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KleinerBaum/surf-van-pi3b"
+  },
+  "author": "Surf-Van-Team",
+  "license": "MIT"
+}
