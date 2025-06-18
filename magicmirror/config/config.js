@@ -5,16 +5,29 @@ let config = {
   timeFormat: 24,
   units: "metric",
   modules: [
+    {
+      module: "compliments",
+      position: "top_center"
+    },
     { module: "clock", position: "top_left" },
     {
-      module: "MMM-Surf",
+      module: "MMM-AEMet",
       position: "top_right",
+      config: {
+        apiKey: "<DEIN_AEMET_KEY>",
+        lat: 36.721,
+        lon: -4.421
+      }
+    },
+    {
+      module: "MMM-Surf",
+      position: "bottom_center",
       config: {
         dataFile: "modules/MMM-Surf/data.json",
         showWaveHeight: true,
         showTide: true,
         showWind: false,    // weniger Grafik = weniger RAM
-        locale: "es",
+        locale: "es"
       }
     }
     // Füge max. 1-2 weitere leichte Module hinzu!
