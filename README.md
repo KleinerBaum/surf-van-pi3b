@@ -26,3 +26,29 @@ Nicht alle Dienste gleichzeitig laufen lassen! Pi 3B ist limitiert – Fokus auf
 - Nicht zu viele grafische Module!
 - Chromium nur als Kiosk, nicht zum Surfen
 - Home Assistant am besten separat (nicht parallel zu MM)
+
+## Wetter-Skripte
+
+In `scripts/` liegen Helfer für AEMet und Pirate Weather. Sie legen JSON-Dateien an,
+die von MagicMirror-Modulen genutzt werden können.
+
+```bash
+python scripts/aemet_fetch.py
+python scripts/pirateweather_fetch.py
+python scripts/windy_api_fetch.py
+```
+
+Die zugehörigen MagicMirror-Module befinden sich unter
+`magicmirror/modules/MMM-AEMet`,
+`magicmirror/modules/MMM-PirateWeather` und
+`magicmirror/modules/MMM-WindyForecast`.
+
+Das Skript `surf_weather_cron.py` kombiniert diese Daten automatisch.
+Es ruft Surfline und Tide-Infos ab und nutzt AEMet als Quelle für
+Wettervorhersagen. Schlägt dies fehl, springt Pirate Weather ein.
+Alle Daten landen gebündelt in `~/MagicMirror/modules/MMM-Surf/data.json`.
+
+### Windy API
+
+Mit `scripts/windy_api_fetch.py` kannst du Windy-Vorhersagen sowie Webcams abrufen.
+Das zugehörige MagicMirror-Modul befindet sich in `magicmirror/modules/MMM-WindyForecast`.

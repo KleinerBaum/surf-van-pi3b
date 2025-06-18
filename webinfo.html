@@ -22,11 +22,11 @@
       <li><strong>Home Assistant Core (light)</strong></li>
     </ul>
   </section>
-  <section>
+  <section id="surf">
     <h2>🌊 Wetter & Swell offline-fähig</h2>
-    <ul>
-      <li>Daten-Update alle 6h (API → MagicMirror)</li>
-    </ul>
+    <div>Zuletzt aktualisiert: <span id="updated">-</span></div>
+    <div>Status: <span id="state">-</span></div>
+    <div>Temp: <span id="temp">-</span></div>
   </section>
   <section>
     <h2>Tipps</h2>
@@ -38,5 +38,21 @@
   <div class="footer">
     Keep it light! Surf & smile 🌊🚐
   </div>
+  <script>
+    async function loadData() {
+      try {
+        const resp = await fetch('../MagicMirror/modules/MMM-Surf/data.json');
+        const data = await resp.json();
+        document.getElementById('updated').textContent = new Date(data.updated).toLocaleString();
+        if (data.forecast) {
+          document.getElementById('state').textContent = data.forecast.state || '-';
+          document.getElementById('temp').textContent = `${data.forecast.temp_min}°C - ${data.forecast.temp_max}°C`;
+        }
+      } catch (e) {
+        document.getElementById('state').textContent = 'Keine Daten';
+      }
+    }
+    loadData();
+  </script>
 </body>
 </html>
