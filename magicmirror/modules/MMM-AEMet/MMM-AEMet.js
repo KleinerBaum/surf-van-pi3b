@@ -8,6 +8,7 @@ Module.register("MMM-AEMet", {
 
   start() {
     this.forecast = null;
+    this.wrapperId = this.identifier + "_wrapper";
     this.getData();
     setInterval(() => this.getData(), this.config.updateInterval);
   },
@@ -26,11 +27,15 @@ Module.register("MMM-AEMet", {
     if (notification === "AEMET_RESULT") {
       this.forecast = payload;
       this.updateDom();
+      const id = this.wrapperId;
+      addAnimateCSS(id, "flipInX", 1);
+      setTimeout(() => removeAnimateCSS(id, "flipInX"), 1000);
     }
   },
 
   getDom() {
     const wrapper = document.createElement("div");
+    wrapper.id = this.wrapperId;
     wrapper.className = "aemet-wrapper";
     if (!this.forecast) {
       wrapper.innerHTML = "Lade AEMet ...";
