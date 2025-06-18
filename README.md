@@ -1,61 +1,38 @@
 # 🏄‍♂️ Surf-Van Dashboard – Pi 3B Edition
 
-Optimiertes Setup für den Raspberry Pi 3 Model B (1 GB RAM):
+Optimiertes Setup für den Raspberry Pi 3 Model B (1 GB RAM).
 
-- MagicMirror² (mit leichten Modulen: Surf, Uhr, Wetter)
-- Wetter- und Swell-Daten automatisch per Python-Skript
+- MagicMirror² mit schlanken Modulen (Surf, Uhr, Wetter)
+- Wetter- und Swell-Daten per Python-Skripte
 - Home Assistant Core (ohne Docker)
-- Optional: Kiosk-Info-Screen (Chromium, ein Tab)
-- Mediennutzung: Extern (z. B. Handy/Tablet/Kodi-Stick), da Pi 3B zu schwach für Kodi + alles andere
+- Optional: Kiosk-Info-Screen via Chromium
+- Mediennutzung extern (z.B. Handy/Tablet/Kodi-Stick)
 
-**Hinweis:**  
-Nicht alle Dienste gleichzeitig laufen lassen! Pi 3B ist limitiert – Fokus auf ein, max. zwei Hauptdienste.
+**Hinweis:** Nicht alle Dienste gleichzeitig laufen lassen!
 
-## **Setup-Quickstart**
+## Setup-Quickstart
 
-1. Frisches Pi OS „Lite“ oder „Desktop“ installieren  
-2. Repo klonen:  
-   `git clone https://github.com/DEINREPO/surf-van-pi3b.git`
-3. Installation starten:  
-   `bash install_all_pi3b.sh`
-4. API-Keys in `.env` eintragen  
-5. Cronjob für Wetter/Swell einrichten  
-6. MagicMirror oder Home Assistant je nach Bedarf starten
-
-## **Tipps**
-- Nicht zu viele grafische Module!
-- Chromium nur als Kiosk, nicht zum Surfen
-- Home Assistant am besten separat (nicht parallel zu MM)
+1. Pi OS installieren
+2. Repository klonen: `git clone https://github.com/DEINREPO/surf-van-pi3b.git`
+3. Installation ausführen: `bash install_all_pi3b.sh`
+4. API-Keys in `.env` eintragen
+5. Cronjob für Wetter/Swell einrichten
+6. MagicMirror oder Home Assistant starten
 
 ## Wetter-Skripte
 
-In `scripts/` liegen Helfer für AEMet und Pirate Weather. Sie legen JSON-Dateien an,
-die von MagicMirror-Modulen genutzt werden können.
+Im Ordner `scripts/` liegen Helfer für AEMet, Pirate Weather und Windy. Sie
+speichern JSON-Dateien, die von den MagicMirror-Modulen gelesen werden.
 
 ```bash
 python scripts/aemet_fetch.py
 python scripts/pirateweather_fetch.py
-<<<<<<< codex/integriere-aemet-und-pirateweather-als-magicmirror-module
 python scripts/windy_api_fetch.py
 ```
 
 Die zugehörigen MagicMirror-Module befinden sich unter
-`magicmirror/modules/MMM-AEMet`,
-`magicmirror/modules/MMM-PirateWeather` und
-`magicmirror/modules/MMM-WindyForecast`.
+`magicmirror/modules/MMM-AEMet`, `MMM-PirateWeather` und `MMM-WindyForecast`.
 
-Das Skript `surf_weather_cron.py` kombiniert diese Daten automatisch.
-Es ruft Surfline und Tide-Infos ab und nutzt AEMet als Quelle für
-Wettervorhersagen. Schlägt dies fehl, springt Pirate Weather ein.
-Alle Daten landen gebündelt in `~/MagicMirror/modules/MMM-Surf/data.json`.
+Das Skript `surf_weather_cron.py` kombiniert Surfline-, Tide- und Wetterdaten und
+legt sie in `~/MagicMirror/modules/MMM-Surf/data.json` ab.
 
-### Windy API
-
-Mit `scripts/windy_api_fetch.py` kannst du Windy-Vorhersagen sowie Webcams abrufen.
-Das zugehörige MagicMirror-Modul befindet sich in `magicmirror/modules/MMM-WindyForecast`.
-=======
-```
-
-Die zugehörigen MagicMirror-Module befinden sich unter
-`magicmirror/modules/MMM-AEMet` und `magicmirror/modules/MMM-PirateWeather`.
->>>>>>> main
