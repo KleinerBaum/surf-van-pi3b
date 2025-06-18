@@ -1,26 +1,57 @@
 {
-  "name": "surf-van-dashboard",
+  "name": "magicmirror-surf-van",
   "version": "1.0.0",
-  "description": "MagicMirror² setup for a slim Surf Van Dashboard (Pi-3B+)",
+  "description": "MagicMirror² – Surf-Van Dashboard (Pi-3B+ Optimiert)",
   "main": "js/electron.js",
+
   "scripts": {
     "start": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js",
-    "start:dev": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js dev"
+    "start:dev": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js dev",
+    "server": "node serveronly"
   },
+
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "node-fetch": "^2.6.9",
+    /* ---------- Core MagicMirror ---------- */
+    "body-parser": "^1.20.2",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.4",
+    "express-ipfilter": "^1.2.4",
+    "helmet": "^7.0.0",
+    "helmet-crossdomain": "^0.5.0",
+    "moment": "^2.29.4",
+    "node-ical": "^0.18.1",
+    "request": "^2.88.2",
+    "valid-url": "^1.0.9",
+
+    /* ---------- Surf-Module / Dashboard ---------- */
+    "dotenv": "^16.3.1",
+    "envsub": "^3.1.2",
+    "node-fetch": "^2.6.9",
+    "module-alias": "^2.2.3",
     "rss-parser": "^3.13.0",
-    "moment": "^2.29.4"
-  },
-  "devDependencies": {
+
+    /* ---------- Runtime ---------- */
     "electron": "^25.3.1"
   },
+
+  "devDependencies": {},
+
+  "_moduleAliases": {
+    "config":   "config",
+    "modules":  "modules",
+    "vendor":   "vendor",
+    "lib":      "lib",
+    "logger":   "lib/logger.js"
+  },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/KleinerBaum/surf-van-pi3b"
   },
-  "author": "Surf-Van-Team",
-  "license": "MIT"
+  "author": "Surf-Van Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
 }
